@@ -20,12 +20,15 @@ PathPilot is a smart career recommendation platform that helps students identify
 
 ---
 
-### **Tech Stack**
+### Technologies Used
 
-* **Frontend:** React.js, Next.js, Tailwind CSS
-* **Backend:** Node.js, Express.js
-* **Database:** MongoDB
-* **AI:** OpenAI API for chatbot
+* **React.js + Next.js** – For building a fast, SEO-friendly, and interactive user interface
+* **Tailwind CSS** – For responsive, accessible, and modern styling
+* **JavaScript** – For logic, interaction handling, and data manipulation
+* **MongoDB** – For storing user profiles, career paths, and progress data
+* **OpenAI APIs** – For chat-based interaction and intelligent response generation
+* **Node.js + Express** – For backend API creation and handling user sessions
+
 
 ---
 
