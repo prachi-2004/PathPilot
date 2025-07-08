@@ -1,0 +1,25 @@
+{
+  "name": "pathpilot",
+  "version": "1.0.0",
+  "description": "**PathPilot: An AI-Powered Career Guidance Platform**",
+  "main": "auth.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prachi-2004/PathPilot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prachi-2004/PathPilot/issues"
+  },
+  "homepage": "https://github.com/prachi-2004/PathPilot#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  },
+  "keywords": []
+}

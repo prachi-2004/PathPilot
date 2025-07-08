@@ -3,38 +3,209 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Career Quiz | PathPilot</title>
+  <title>Career Quiz - PathPilot</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Optional inline styles for quiz */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #4caf50;
+      transition: width 0.3s ease;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .options label {
+      display: block;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #f1f1f1;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .btn-next {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-next:hover {
+      background-color: #1976D2;
+    }
+  </style>
 </head>
 <body>
 
+  <!-- Navbar (Optional) -->
   <nav class="navbar">
     <div class="container">
-      <h1 class="logo">PathPilot</h1>
+      <div class="logo">
+        <img src="logo.jpg" alt="PathPilot Logo" class="logo-img" />
+      </div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#">Login</a></li>
       </ul>
     </div>
   </nav>
 
-  <section class="quiz-section">
-    <div class="container">
-      <h2>Career Assessment Quiz</h2>
-      <div id="quiz-box">
-        <p id="question">Loading question...</p>
-        <div id="options"></div>
-        <button id="nextBtn" class="btn" disabled>Next</button>
+  <!-- Quiz Container -->
+  <div class="quiz-container">
+    <h2>Let’s Find Your Career Match</h2>
+    <div class="progress-bar">
+      <div id="progressFill" class="progress-fill"></div>
+    </div>
+
+    <form id="quizForm">
+      <!-- Question 1 -->
+      <div class="question" data-question="1">
+        <p><strong>Q1:</strong> Which of these best describes your interest?</p>
+        <div class="options">
+          <label><input type="radio" name="q1" value="tech"> Tech / Programming</label>
+          <label><input type="radio" name="q1" value="design"> Design / Creativity</label>
+          <label><input type="radio" name="q1" value="business"> Business / Management</label>
+          <label><input type="radio" name="q1" value="data"> Data / Analytics</label>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 PathPilot. All rights reserved.</p>
-    </div>
-  </footer>
+      <!-- Question 2 -->
+      <div class="question" data-question="2" style="display:none;">
+        <p><strong>Q2:</strong> How do you prefer to work?</p>
+        <div class="options">
+          <label><input type="radio" name="q2" value="alone"> Alone</label>
+          <label><input type="radio" name="q2" value="team"> In a Team</label>
+          <label><input type="radio" name="q2" value="remote"> Remote / Flexible</label>
+          <label><input type="radio" name="q2" value="creative"> Creative Freedom</label>
+        </div>
+      </div>
 
-  <script src="quiz.js"></script>
+      <!-- Question 3 -->
+      <div class="question" data-question="3" style="display:none;">
+        <p><strong>Q3:</strong> Which skill are you most confident in?</p>
+        <div class="options">
+          <label><input type="radio" name="q3" value="coding"> Coding</label>
+          <label><input type="radio" name="q3" value="writing"> Writing</label>
+          <label><input type="radio" name="q3" value="analyzing"> Analyzing Data</label>
+          <label><input type="radio" name="q3" value="presenting"> Presenting Ideas</label>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn-next" style="display:none;" id="submitBtn">See Results</button>
+    </form>
+
+    <button class="btn-next" id="nextBtn">Next</button>
+  </div>
+
+  <script>
+  const questions = document.querySelectorAll('.question');
+  let currentQuestion = 0;
+
+  const progressFill = document.getElementById('progressFill');
+  const nextBtn = document.getElementById('nextBtn');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function showQuestion(index) {
+    questions.forEach((q, i) => {
+      q.style.display = i === index ? 'block' : 'none';
+    });
+
+    if (index === questions.length - 1) {
+      nextBtn.style.display = 'none';
+      submitBtn.style.display = 'block';
+    } else {
+      nextBtn.style.display = 'block';
+      submitBtn.style.display = 'none';
+    }
+
+    const progressPercent = ((index + 1) / questions.length) * 100;
+    progressFill.style.width = progressPercent + '%';
+  }
+
+  nextBtn.addEventListener('click', () => {
+    if (currentQuestion < questions.length - 1) {
+      currentQuestion++;
+      showQuestion(currentQuestion);
+    }
+  });
+
+  quizForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(quizForm);
+    const answers = {};
+    for (let [key, value] of formData.entries()) {
+      answers[key] = value;
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/api/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(answers)
+      });
+
+      const result = await response.json();
+      console.log('Success:', result);
+
+      // Save locally too (for dashboard)
+      localStorage.setItem('careerQuizAnswers', JSON.stringify(answers));
+
+      // Redirect to dashboard
+      window.location.href = 'dashboard.html';
+
+    } catch (error) {
+      console.error('Error:', error);
+      alert("There was a problem submitting your quiz.");
+    }
+  });
+
+  showQuestion(currentQuestion);
+</script>
 </body>
 </html>

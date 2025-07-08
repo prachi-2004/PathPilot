@@ -33,6 +33,8 @@ body {
 }
 
 .nav-links {
+  font-size: 1.2rem;
+  font-weight: bold;
   list-style: none;
   display: flex;
   gap: 20px;
@@ -63,7 +65,7 @@ body {
 
 .btn {
   padding: 10px 25px;
-  background-color: #2563eb;
+  background-color: #151194;
   color: #fff;
   text-decoration: none;
   border: none;
@@ -240,3 +242,92 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.quiz-container {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Dashboard Styles === */
+
+.dashboard-container {
+  max-width: 800px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dashboard-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.user-info,
+.recommendation,
+.next-steps {
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.user-info {
+  background-color: #e3f2fd;
+}
+
+.recommendation {
+  background-color: #fff9c4;
+}
+
+.next-steps {
+  background-color: #e8f5e9;
+}
+
+.user-info h4,
+.recommendation h4,
+.next-steps h4 {
+  margin-top: 0;
+}
+
+ul {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.btn-back {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #64b5f6;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.btn-back:hover {
+  background-color: #42a5f5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 20px;
+  }
+
+  .btn-back {
+    display: block;
+    text-align: center;
+  }
+}

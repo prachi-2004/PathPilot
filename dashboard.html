@@ -2,59 +2,118 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard | PathPilot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - PathPilot</title>
   <link rel="stylesheet" href="styles.css" />
+  
 </head>
 <body>
 
+  <!-- Navbar -->
   <nav class="navbar">
     <div class="container">
-      <h1 class="logo">PathPilot</h1>
+      <div class="logo">
+        <img src="logo.jpg" alt="PathPilot Logo" class="logo-img" />
+      </div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="#">Logout</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="#">Profile</a></li>
       </ul>
     </div>
   </nav>
 
-  <section class="dashboard">
-    <div class="container">
-      <h2>Your Career Dashboard</h2>
+  <!-- Dashboard Content -->
+  <div class="dashboard-container">
+    <h2>Welcome Back, User!</h2>
 
-      <div class="dashboard-section">
-        <h3>Top Career Recommendation</h3>
-        <p><strong>Software Engineer</strong> — Utilize your logical thinking and tech interest.</p>
-      </div>
-
-      <div class="dashboard-section">
-        <h3>Step-by-Step Roadmap</h3>
-        <ul>
-          <li>📘 Learn Data Structures & Algorithms</li>
-          <li>🎓 Take a CS50 or Python course</li>
-          <li>🧪 Build mini projects (portfolio)</li>
-          <li>💼 Apply for internships</li>
-        </ul>
-      </div>
-
-      <div class="dashboard-section">
-        <h3>Skill Gap Analysis</h3>
-        <p>Recommended Skills to Build: Python, Git, System Design</p>
-      </div>
-
-      <div class="dashboard-section">
-        <h3>Progress Tracker</h3>
-        <progress value="40" max="100"></progress>
-        <p>40% completed on your roadmap!</p>
-      </div>
+    <div class="user-info">
+      <h4>Your Quiz Summary</h4>
+      <ul id="quiz-summary">
+        <!-- Filled by JavaScript -->
+      </ul>
     </div>
-  </section>
 
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 PathPilot. All rights reserved.</p>
+    <div class="recommendation">
+      <h4>Recommended Career Path</h4>
+      <p id="career-recommendation">Loading...</p>
     </div>
-  </footer>
 
+    <div class="next-steps">
+      <h4>Next Steps</h4>
+      <ul id="next-steps">
+        <!-- Filled by JavaScript -->
+      </ul>
+    </div>
+
+    <a href="quiz.html" class="btn-back">Retake Quiz</a>
+  </div>
+
+  <script>
+    // Get quiz data from localStorage
+    const answers = JSON.parse(localStorage.getItem('careerQuizAnswers'));
+
+    if (answers) {
+      const summaryList = document.getElementById('quiz-summary');
+      const recommendationText = document.getElementById('career-recommendation');
+      const stepsList = document.getElementById('next-steps');
+
+      // Display quiz answers
+      for (let key in answers) {
+        const answer = answers[key];
+        const li = document.createElement('li');
+        li.textContent = `${key.toUpperCase()}: ${answer}`;
+        summaryList.appendChild(li);
+      }
+
+      // Simple recommendation logic based on quiz answers
+      const q1 = answers.q1.toLowerCase();
+      const q2 = answers.q2.toLowerCase();
+      const q3 = answers.q3.toLowerCase();
+
+      let career = "Generalist Role";
+      let steps = [];
+
+      if (q1 === 'tech' && q3 === 'coding') {
+        career = "Software Engineer";
+        steps = [
+          "Learn Data Structures & Algorithms",
+          "Master a programming language (Python/JavaScript)",
+          "Build small projects (apps, tools)"
+        ];
+      } else if (q1 === 'design' && q3 === 'creative') {
+        career = "UI/UX Designer";
+        steps = [
+          "Learn Figma or Adobe XD",
+          "Study UX principles and accessibility",
+          "Create a portfolio website"
+        ];
+      } else if (q1 === 'business' && q2 === 'team') {
+        career = "Product Manager";
+        steps = [
+          "Understand Agile and Scrum methodologies",
+          "Practice stakeholder communication",
+          "Get certified in Product Management"
+        ];
+      } else if (q1 === 'data' && q3 === 'analyzing') {
+        career = "Data Analyst";
+        steps = [
+          "Learn SQL and Python for data analysis",
+          "Familiarize with tools like Excel, Tableau, or Power BI",
+          "Work on real-world datasets"
+        ];
+      }
+
+      recommendationText.textContent = career;
+
+      steps.forEach(step => {
+        const li = document.createElement('li');
+        li.textContent = step;
+        stepsList.appendChild(li);
+      });
+    } else {
+      document.getElementById('career-recommendation').textContent = "No quiz data found. Please take the quiz first.";
+    }
+  </script>
 </body>
 </html>
